@@ -1,7 +1,7 @@
-import { Avatar, Divider, Drawer, List, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
-import { useDrawerContext } from '../../contexts';
+import { useAppThemeContext, useDrawerContext } from '../../contexts';
 import { MenuItem } from './menu-item/menu-item';
 
 
@@ -10,6 +10,7 @@ export const Sidebard: React.FC<React.PropsWithChildren> = ({ children }) => {
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
+  const { toggleTheme, themeName } = useAppThemeContext();
 
   return (
     <>
@@ -32,6 +33,16 @@ export const Sidebard: React.FC<React.PropsWithChildren> = ({ children }) => {
                   label={drawerOption.label}
                   onClick={smDown ? toggleDrawerOpen : undefined} /> 
               ))}
+            </List>
+          </Box>
+          <Box>
+            <List component='nav'>
+              <ListItemButton onClick={toggleTheme}>
+                <ListItemIcon>
+                  <Icon>{themeName === 'light' ? 'dark_mode' : 'light_mode'}</Icon>
+                </ListItemIcon>
+                <ListItemText primary='Change' />
+              </ListItemButton>
             </List>
           </Box>
         </Box>
